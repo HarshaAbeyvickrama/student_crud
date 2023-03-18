@@ -1,9 +1,6 @@
 <?php
-// Database credentials
-$db_host = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "student_data";
+// Include the database configuration file
+require_once 'db_config.php';
 
 // Create connection
 $conn = new mysqli($db_host, $db_user, $db_password, $db_name);
@@ -25,7 +22,7 @@ if (isset($_POST['submit'])) {
     // Insert data into database
     $sql = "INSERT INTO students (name, address, age, dob, gender) VALUES ('$name', '$address', '$age', '$dob', '$gender')";
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        echo "New record created successfully. <a href='/student_crud/'>Back</a>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

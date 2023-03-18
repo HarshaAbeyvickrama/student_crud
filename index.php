@@ -92,17 +92,14 @@
                 <option value="other">Other</option>
             </select>
         </div>
-        <button type="submit" name="submit">Submit</button>
+        <button type="submit" name="submit">Create</button>
     </form>
 
     <?php
-    // Connect to the database
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "student_data";
+    // Include the database configuration file
+    require_once 'db_config.php';
 
-    $conn = mysqli_connect($servername, $username, $password, $dbname);
+    $conn = mysqli_connect($db_host, $db_user, $db_password, $db_name);
 
     // Check connection
     if (!$conn) {
@@ -126,7 +123,7 @@
             echo "<td>" . $row["age"] . "</td>";
             echo "<td>" . $row["dob"] . "</td>";
             echo "<td>" . $row["gender"] . "</td>";
-            echo "<td><a href='update.php?id=" . $row["id"] . "'>Update</a></td>";
+            echo "<td><a href='javascript:void(0);' class='update-btn' data-id='" . $row["id"] . "'>View</a></td>";
             echo "<td><a href='delete.php?id=" . $row["id"] . "'>Delete</a></td>";
             echo "</tr>";
         }
@@ -139,7 +136,31 @@
     // Close the database connection
     mysqli_close($conn);
     ?>
-
 </body>
+
+<script>
+    var updateBtns = document.querySelectorAll('.update-btn');
+
+    updateBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var id = this.getAttribute('data-id');
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'get_student.php?id=' + id);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    document.querySelector('input[name="name"]').value = data.name;
+                    document.querySelector('input[name="address"]').value = data.address;
+                    document.querySelector('input[name="age"]').value = data.age;
+                    document.querySelector('input[name="dob"]').value = data.dob;
+                    document.querySelector('select[name="gender"]').value = data.gender;
+                } else {
+                    alert('Error retrieving student data.');
+                }
+            };
+            xhr.send();
+        });
+    });
+</script>
 
 </html>

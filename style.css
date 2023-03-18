@@ -1,29 +1,28 @@
 table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-  }
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
   
-  th, td {
-    text-align: left;
-    padding: 8px;
-  }
+th, td {
+  text-align: left;
+  padding: 8px;
+}
   
-  th {
-    background-color: #4CAF50;
-    color: white;
-  }
+th {
+  background-color: #4CAF50;
+  color: white;
+}
   
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
   
-  a {
-    color: blue;
-    text-decoration: none;
-  }
+a {
+  color: blue;
+  text-decoration: none;
+}
   
-  a:hover {
-    text-decoration: underline;
-  }
-  
+a:hover {
+  text-decoration: underline;
+}
